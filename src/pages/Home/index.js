@@ -1,7 +1,14 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
-import { FiCircle, FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import {
+  FiCircle,
+  FiChevronLeft,
+  FiChevronRight,
+  FiArrowRightCircle,
+  FiCheckCircle,
+} from "react-icons/fi";
 import ReactLoading from "react-loading";
+import { Link } from "react-router-dom";
 
 import api from "../../services/api";
 
@@ -24,6 +31,7 @@ export default function Home() {
   const [searchValue, setSearchValue] = useState("");
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
+  const [selectItens, setSelectItens] = useState([]);
 
   function paginate(array, page_size, page_number) {
     return array.slice((page_number - 1) * page_size, page_number * page_size);
@@ -80,6 +88,19 @@ export default function Home() {
     setSearchValue(e);
   }
 
+  function handleSelect(e, addItem) {
+    e.preventDefault();
+
+    const exists = selectItens.find((i) => i === addItem);
+
+    if (exists) {
+      const selectedRemoved = selectItens.filter((r) => r !== addItem);
+      setSelectItens(selectedRemoved);
+    } else {
+      setSelectItens([...selectItens, addItem]);
+    }
+  }
+
   return (
     <Container>
       <h1>SoftExpert</h1>
@@ -105,7 +126,7 @@ export default function Home() {
           <LoadingCentered>
             <ReactLoading
               type="bars"
-              color="#7159c1"
+              color="#47525E"
               height="20%"
               width="20%"
             />
@@ -123,33 +144,65 @@ export default function Home() {
             </thead>
             <tbody>
               {searchValue !== ""
-                ? companiesFiltered.map((company) => (
-                    <tr key={company.symbol}>
+                ? companiesFiltered.map((company, index) => (
+                    <tr
+                      key={company.symbol}
+                      className={
+                        !selectItens.find((e) => e === company)
+                          ? ""
+                          : "selected"
+                      }
+                    >
                       <td>
-                        <a href="">
-                          <FiCircle size={22} />
+                        <a
+                          type="button"
+                          onClick={(e) => handleSelect(e, company)}
+                        >
+                          {!selectItens.find((e) => e === company) ? (
+                            <FiCircle size={28} />
+                          ) : (
+                            <FiCheckCircle size={28} />
+                          )}
                         </a>
                       </td>
                       <td>{company.symbol}</td>
                       <td>{company.name}</td>
                       <td>{`$ ${company.price}`}</td>
                       <td>
-                        <FiCircle size={22} />
+                        <Link to={{ pathname: "/detail", state: { company } }}>
+                          <FiArrowRightCircle size={28} />
+                        </Link>
                       </td>
                     </tr>
                   ))
                 : companies.map((company) => (
-                    <tr key={company.symbol}>
+                    <tr
+                      key={company.symbol}
+                      className={
+                        !selectItens.find((e) => e === company)
+                          ? ""
+                          : "selected"
+                      }
+                    >
                       <td>
-                        <a href="">
-                          <FiCircle size={22} />
+                        <a
+                          type="button"
+                          onClick={(e) => handleSelect(e, company)}
+                        >
+                          {!selectItens.find((e) => e === company) ? (
+                            <FiCircle size={28} />
+                          ) : (
+                            <FiCheckCircle size={28} />
+                          )}
                         </a>
                       </td>
                       <td>{company.symbol}</td>
                       <td>{company.name}</td>
                       <td>{`$ ${company.price}`}</td>
                       <td>
-                        <FiCircle size={22} />
+                        <Link to={{ pathname: "/detail", state: { company } }}>
+                          <FiArrowRightCircle size={28} />
+                        </Link>
                       </td>
                     </tr>
                   ))}

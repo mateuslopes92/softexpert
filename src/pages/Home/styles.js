@@ -75,73 +75,89 @@ export const TableContainer = styled.div`
     border: 1px solid #c0ccda;
     font-family: "Lato";
 
-    tr {
-      border: none;
-      text-align: left;
-      height: 50px;
-      color: #47525e;
-      font-size: 16px;
-      font-weight: 700;
-      line-height: 20px;
-      border: 1px solid #c0ccda;
-
-      &:not(:last-of-type) {
-        border-bottom: 1px solid #eee;
-      }
-
-      th {
-        background: #eff2f7;
+    thead {
+      tr {
+        border: none;
         text-align: left;
+        height: 50px;
+        color: #47525e;
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 20px;
+        border: 1px solid #c0ccda;
+        align-items: center;
 
-        &:nth-child(1) {
-          text-align: center;
-          width: 80px;
+        &:not(:last-of-type) {
+          border-bottom: 1px solid #eee;
         }
-        &:nth-child(2) {
+
+        th {
+          background: #eff2f7;
           text-align: left;
-          width: 140px;
-        }
-        &:nth-child(3) {
-          text-align: left;
-        }
-        &:nth-child(4) {
-          text-align: center;
-          width: 80px;
-        }
-        &:nth-child(5) {
-          text-align: center;
-          width: 100px;
+
+          &:nth-child(1) {
+            text-align: center;
+            width: 80px;
+          }
+          &:nth-child(2) {
+            text-align: left;
+            width: 140px;
+          }
+          &:nth-child(3) {
+            text-align: left;
+          }
+          &:nth-child(4) {
+            text-align: center;
+            width: 80px;
+          }
+          &:nth-child(5) {
+            text-align: center;
+            width: 100px;
+          }
         }
       }
     }
-    tr {
-      color: #47525e;
-      font-size: 16px;
-      font-weight: 400;
-      line-height: 20px;
-      border: 1px solid #c0ccda;
+    tbody {
+      tr {
+        color: #47525e;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 20px;
+        border: 1px solid #c0ccda;
+        text-align: left;
+        height: 50px;
+        align-items: center;
 
-      td {
-        &:nth-child(1) {
-          text-align: center;
-        }
-        &:nth-child(2) {
-          text-align: left;
-          padding-left: 8px;
-        }
-        &:nth-child(3) {
-          text-align: left;
-        }
-        &:nth-child(4) {
-          text-align: center;
-        }
-        &:nth-child(5) {
-          text-align: center;
+        &:hover {
+          background: #f9fafc;
+          transform: translateX(1px);
         }
 
-        a {
-          text-decoration: none;
-          color: #47525e;
+        &.selected {
+          background: #f9fafc;
+        }
+
+        td {
+          &:nth-child(1) {
+            text-align: center;
+          }
+          &:nth-child(2) {
+            text-align: left;
+            padding-left: 8px;
+          }
+          &:nth-child(3) {
+            text-align: left;
+          }
+          &:nth-child(4) {
+            text-align: center;
+          }
+          &:nth-child(5) {
+            text-align: center;
+          }
+
+          a {
+            color: #47525e;
+          }
         }
       }
     }
